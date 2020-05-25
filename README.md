@@ -1,3 +1,5 @@
+##
+Episode 1 Code :)
 ## Gradle Tasks
 Whenever you want to produce a minified "production" version of your code pass in `-Pproduction=true` or `-Pprod=true` to your build command.
 ### Resource Processing
