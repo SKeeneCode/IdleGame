@@ -77,7 +77,10 @@ class App : Application() {
         }
         // monster death
         monsterStore.subscribe { monster ->
-            if (monster.life <= 0) monsterStore.dispatch(MonsterActions.NewMonster)
+            if (monster.life <= 0) {
+                playerStore.dispatch(XPActions.IncrementBy(monster.xp))
+                monsterStore.dispatch(MonsterActions.NewMonster)
+            }
         }
 
         GlobalScope.launch {

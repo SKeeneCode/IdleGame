@@ -38,7 +38,7 @@ class BattleDisplay : ResponsiveGridPanel(rows = 12, cols = 12, align = Align.CE
                         setAttribute("aria-valuenow", player.attackBar.toString())
                         setAttribute("aria-valuemin", "0")
                         setAttribute("aria-valuemax", player.attackBarMax.toString())
-                        content = "Attack: ${player.attackBar} / ${player.attackBarMax}"
+                        content = "Attack: ${player.attackBar.toInt()} / ${player.attackBarMax}"
                         width = CssSize((player.attackBar * 100) / player.attackBarMax, UNIT.perc)
                     }
                 }
@@ -47,12 +47,12 @@ class BattleDisplay : ResponsiveGridPanel(rows = 12, cols = 12, align = Align.CE
     private fun monsterAttackBar() =
             Div(classes = setOf("progress", "m-1")) {
                 div(classes = setOf("progress-bar-no-animation", "progress-bar-striped", "bg-info", "barText")) {
-                    bind(playerStore) { monster ->
+                    bind(monsterStore) { monster ->
                         role = "progressbar"
                         setAttribute("aria-valuenow", monster.attackBar.toString())
                         setAttribute("aria-valuemin", "0")
                         setAttribute("aria-valuemax", monster.attackBarMax.toString())
-                        content = "Attack: ${monster.attackBar} / ${monster.attackBarMax}"
+                        content = "Attack: ${monster.attackBar.toInt()} / ${monster.attackBarMax}"
                         width = CssSize((monster.attackBar * 100) / monster.attackBarMax, UNIT.perc)
                     }
                 }
