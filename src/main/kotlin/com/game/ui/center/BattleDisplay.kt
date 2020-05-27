@@ -32,7 +32,7 @@ class BattleDisplay : ResponsiveGridPanel(rows = 12, cols = 12, align = Align.CE
     // ---- ATTACK BARS ---- //
     private fun playerAttackBar() =
             Div(classes = setOf("progress", "m-1")) {
-                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-info", "barText")) {
+                div(classes = setOf("progress-bar-no-animation", "progress-bar-striped", "bg-info", "barText")) {
                     bind(playerStore) { player ->
                         role = "progressbar"
                         setAttribute("aria-valuenow", player.attackBar.toString())
@@ -46,7 +46,7 @@ class BattleDisplay : ResponsiveGridPanel(rows = 12, cols = 12, align = Align.CE
 
     private fun monsterAttackBar() =
             Div(classes = setOf("progress", "m-1")) {
-                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-info", "barText")) {
+                div(classes = setOf("progress-bar-no-animation", "progress-bar-striped", "bg-info", "barText")) {
                     bind(playerStore) { monster ->
                         role = "progressbar"
                         setAttribute("aria-valuenow", monster.attackBar.toString())

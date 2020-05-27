@@ -26,6 +26,7 @@ import pl.treksoft.kvision.startApplication
 class App : Application() {
     init {
         require("css/kvapp.css")
+        require("css/bootstrap.css")
     }
 
     override fun start() {
@@ -67,7 +68,7 @@ class App : Application() {
                 val monster = monsterStore.getState()
                 playerStore.dispatch(AttackBarActions.IncrementBy(player.attackSpeed))
                 monsterStore.dispatch(AttackBarActions.IncrementBy(monster.attackSpeed))
-                delay(50)
+                delay(1000 / 60)
             }
         }
 
