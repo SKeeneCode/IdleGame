@@ -5,7 +5,8 @@ import com.game.model.Player
 fun playerReducer(player: Player, action: Any): Player = Player(
         name = player.name,
         level = player.level,
-        xp = player.xp,
+        xp = xpReducer(player.xp, action),
+        nextLevel = player.nextLevel,
         life = lifeReducer(player.life, player.maxLife, action),
         lifeRegen = player.lifeRegen,
         maxLife = player.maxLife,

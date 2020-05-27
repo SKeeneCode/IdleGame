@@ -11,8 +11,8 @@ import pl.treksoft.kvision.state.bind
 import pl.treksoft.kvision.utils.px
 
 class Header : HPanel(classes = setOf("header"), spacing = 12) {
-    init {
 
+    init {
         div("LEVEL", className = "logo")
 
         vPanel(justify = FlexJustify.CENTER, spacing = 12) {
@@ -46,15 +46,18 @@ class Header : HPanel(classes = setOf("header"), spacing = 12) {
             }
             // player experience bar
             div(classes = setOf("progress", "m-1")) {
-                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-warning")) {
-                    role = "progressbar"
-                    setAttribute("aria-valuenow", "5")
-                    setAttribute("aria-valuemin", "0")
-                    setAttribute("aria-valuemax", "10")
-                    content = "Experience Bar"
-                    width = CssSize(100, UNIT.perc)
+                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-warning", "barText")) {
+                    bind(playerStore) { player ->
+                        role = "progressbar"
+                        setAttribute("aria-valuenow", player.xp.toString())
+                        setAttribute("aria-valuemin", "0")
+                        setAttribute("aria-valuemax", player.nextLevel.toString())
+                        content = "Stamina: ${player.xp} / ${player.nextLevel}"
+                        width = CssSize((player.xp * 100) / player.nextLevel, UNIT.perc)
+                    }
                 }
             }
         }
     }
+
 }
