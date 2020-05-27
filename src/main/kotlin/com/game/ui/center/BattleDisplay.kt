@@ -56,7 +56,7 @@ class BattleDisplay : ResponsiveGridPanel(rows = 12, cols = 12, align = Align.CE
     // ---- LIFE BARS ---- //
     private fun playerLifeBar() =
             Div(classes = setOf("progress", "m-1")) {
-                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-danger")) {
+                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-danger", "barText")) {
                     bind(playerStore) { player ->
                         role = "progressbar"
                         setAttribute("aria-valuenow", player.life.toString())

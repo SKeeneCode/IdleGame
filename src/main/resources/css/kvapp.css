@@ -55,3 +55,8 @@
     height: 150px;
     background-color: #737373;
 }
+
+.barText {
+    text-align: center;
+    overflow: visible;
+}

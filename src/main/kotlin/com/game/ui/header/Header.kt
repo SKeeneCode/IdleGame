@@ -2,6 +2,8 @@ package com.game.ui.header
 
 import com.game.model.playerStore
 import pl.treksoft.kvision.core.CssSize
+import pl.treksoft.kvision.core.Overflow
+import pl.treksoft.kvision.core.TextAlign
 import pl.treksoft.kvision.core.UNIT
 import pl.treksoft.kvision.html.div
 import pl.treksoft.kvision.panel.FlexJustify
@@ -20,8 +22,10 @@ class Header : HPanel(classes = setOf("header"), spacing = 12) {
             // player life bar
             div(classes = setOf("progress", "m-1")) {
                 width = 300.px
-                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-danger")) {
+                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-danger", "barText")) {
                     bind(playerStore) { player ->
+                        textAlign = TextAlign.CENTER
+                        overflow = Overflow.VISIBLE
                         role = "progressbar"
                         setAttribute("aria-valuenow", player.life.toString())
                         setAttribute("aria-valuemin", "0")
