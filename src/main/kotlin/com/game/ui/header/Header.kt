@@ -52,7 +52,7 @@ class Header : HPanel(classes = setOf("header"), spacing = 12) {
                         setAttribute("aria-valuenow", player.xp.toString())
                         setAttribute("aria-valuemin", "0")
                         setAttribute("aria-valuemax", player.nextLevel.toString())
-                        content = "Stamina: ${player.xp} / ${player.nextLevel}"
+                        content = "XP: ${player.xp} / ${player.nextLevel}"
                         width = CssSize((player.xp * 100) / player.nextLevel, UNIT.perc)
                     }
                 }
