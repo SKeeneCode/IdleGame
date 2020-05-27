@@ -56,13 +56,15 @@ class BattleDisplay : ResponsiveGridPanel(rows = 12, cols = 12, align = Align.CE
     // ---- LIFE BARS ---- //
     private fun playerLifeBar() =
             Div(classes = setOf("progress", "m-1")) {
-                bind(playerStore) { player ->
-                    role = "progressbar"
-                    setAttribute("aria-valuenow", player.life.toString())
-                    setAttribute("aria-valuemin", "0")
-                    setAttribute("aria-valuemax", player.maxLife.toString())
-                    content = "Life: ${player.life} / ${player.maxLife}"
-                    width = CssSize((player.life * 100) / player.maxLife, UNIT.perc)
+                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-danger")) {
+                    bind(playerStore) { player ->
+                        role = "progressbar"
+                        setAttribute("aria-valuenow", player.life.toString())
+                        setAttribute("aria-valuemin", "0")
+                        setAttribute("aria-valuemax", player.maxLife.toString())
+                        content = "Life: ${player.life} / ${player.maxLife}"
+                        width = CssSize((player.life * 100) / player.maxLife, UNIT.perc)
+                    }
                 }
             }
 
