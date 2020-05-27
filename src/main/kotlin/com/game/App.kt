@@ -7,6 +7,7 @@ import com.game.ui.footer.Footer
 import com.game.ui.header.Header
 import com.game.ui.sidebar.Sidebar
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import pl.treksoft.kvision.Application
 import pl.treksoft.kvision.core.CssSize
@@ -49,6 +50,7 @@ class App : Application() {
             while (true) {
                 val player = playerStore.getState()
                 playerStore.dispatch(LifeActions.IncrementBy(player.lifeRegen))
+                delay(1000)
             }
         }
     }
