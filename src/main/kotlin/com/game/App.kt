@@ -1,6 +1,7 @@
 package com.game
 
 import com.game.actions.LifeActions
+import com.game.actions.StaminaActions
 import com.game.model.monsterStore
 import com.game.model.playerStore
 import com.game.ui.center.Center
@@ -53,6 +54,8 @@ class App : Application() {
                 val monster = monsterStore.getState()
                 playerStore.dispatch(LifeActions.IncrementBy(player.lifeRegen))
                 monsterStore.dispatch(LifeActions.IncrementBy(monster.lifeRegen))
+                playerStore.dispatch(StaminaActions.IncrementBy(player.staminaRegen))
+                monsterStore.dispatch(StaminaActions.IncrementBy(monster.staminaRegen))
                 delay(1000)
             }
         }

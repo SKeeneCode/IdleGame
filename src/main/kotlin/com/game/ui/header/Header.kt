@@ -2,8 +2,6 @@ package com.game.ui.header
 
 import com.game.model.playerStore
 import pl.treksoft.kvision.core.CssSize
-import pl.treksoft.kvision.core.Overflow
-import pl.treksoft.kvision.core.TextAlign
 import pl.treksoft.kvision.core.UNIT
 import pl.treksoft.kvision.html.div
 import pl.treksoft.kvision.panel.FlexJustify
@@ -24,8 +22,6 @@ class Header : HPanel(classes = setOf("header"), spacing = 12) {
                 width = 300.px
                 div(classes = setOf("progress-bar", "progress-bar-striped", "bg-danger", "barText")) {
                     bind(playerStore) { player ->
-                        textAlign = TextAlign.CENTER
-                        overflow = Overflow.VISIBLE
                         role = "progressbar"
                         setAttribute("aria-valuenow", player.life.toString())
                         setAttribute("aria-valuemin", "0")
@@ -37,16 +33,17 @@ class Header : HPanel(classes = setOf("header"), spacing = 12) {
             }
             // player stamina bar
             div(classes = setOf("progress", "m-1")) {
-                div(classes = setOf("progress-bar", "progress-bar-striped")) {
-                    role = "progressbar"
-                    setAttribute("aria-valuenow", "5")
-                    setAttribute("aria-valuemin", "0")
-                    setAttribute("aria-valuemax", "10")
-                    content = "Stamina Bar"
-                    width = CssSize(100, UNIT.perc)
+                div(classes = setOf("progress-bar", "progress-bar-striped", "barText")) {
+                    bind(playerStore) { player ->
+                        role = "progressbar"
+                        setAttribute("aria-valuenow", player.stamina.toString())
+                        setAttribute("aria-valuemin", "0")
+                        setAttribute("aria-valuemax", player.maxStamina.toString())
+                        content = "Stamina: ${player.stamina} / ${player.maxStamina}"
+                        width = CssSize((player.stamina * 100) / player.maxStamina, UNIT.perc)
+                    }
                 }
             }
-
             // player experience bar
             div(classes = setOf("progress", "m-1")) {
                 div(classes = setOf("progress-bar", "progress-bar-striped", "bg-warning")) {

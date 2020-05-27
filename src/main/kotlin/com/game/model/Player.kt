@@ -9,7 +9,7 @@ data class Player(
         val life: Double = 0.0,
         val lifeRegen: Double = 1.0,
         val maxLife: Double = 100.0,
-        val stamina: Double = 50.0,
+        val stamina: Double = 25.0,
         val staminaRegen: Double = 1.0,
         val maxStamina: Double = 50.0,
         val attackSpeed: Double = 1.0,
