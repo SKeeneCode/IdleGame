@@ -32,25 +32,29 @@ class BattleDisplay : ResponsiveGridPanel(rows = 12, cols = 12, align = Align.CE
     // ---- ATTACK BARS ---- //
     private fun playerAttackBar() =
             Div(classes = setOf("progress", "m-1")) {
-                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-info")) {
-                    role = "progressbar"
-                    setAttribute("aria-valuenow", "5")
-                    setAttribute("aria-valuemin", "0")
-                    setAttribute("aria-valuemax", "10")
-                    content = "Player Attack Bar"
-                    width = CssSize(100, UNIT.perc)
+                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-info", "barText")) {
+                    bind(playerStore) { player ->
+                        role = "progressbar"
+                        setAttribute("aria-valuenow", player.attackBar.toString())
+                        setAttribute("aria-valuemin", "0")
+                        setAttribute("aria-valuemax", player.attackBarMax.toString())
+                        content = "Attack: ${player.attackBar} / ${player.attackBarMax}"
+                        width = CssSize((player.attackBar * 100) / player.attackBarMax, UNIT.perc)
+                    }
                 }
             }
 
     private fun monsterAttackBar() =
             Div(classes = setOf("progress", "m-1")) {
-                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-info")) {
-                    role = "progressbar"
-                    setAttribute("aria-valuenow", "5")
-                    setAttribute("aria-valuemin", "0")
-                    setAttribute("aria-valuemax", "10")
-                    content = "Monster Attack Bar"
-                    width = CssSize(100, UNIT.perc)
+                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-info", "barText")) {
+                    bind(playerStore) { monster ->
+                        role = "progressbar"
+                        setAttribute("aria-valuenow", monster.attackBar.toString())
+                        setAttribute("aria-valuemin", "0")
+                        setAttribute("aria-valuemax", monster.attackBarMax.toString())
+                        content = "Attack: ${monster.attackBar} / ${monster.attackBarMax}"
+                        width = CssSize((monster.attackBar * 100) / monster.attackBarMax, UNIT.perc)
+                    }
                 }
             }
 

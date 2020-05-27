@@ -1,5 +1,6 @@
 package com.game
 
+import com.game.actions.AttackBarActions
 import com.game.actions.LifeActions
 import com.game.actions.StaminaActions
 import com.game.model.monsterStore
@@ -59,6 +60,17 @@ class App : Application() {
                 delay(1000)
             }
         }
+
+        GlobalScope.launch {
+            while (true) {
+                val player = playerStore.getState()
+                val monster = monsterStore.getState()
+                playerStore.dispatch(AttackBarActions.IncrementBy(player.attackSpeed))
+                monsterStore.dispatch(AttackBarActions.IncrementBy(monster.attackSpeed))
+                delay(50)
+            }
+        }
+
     }
 }
 
