@@ -1,9 +1,6 @@
 package com.game
 
-import com.game.actions.AttackActions
-import com.game.actions.AttackBarActions
-import com.game.actions.LifeActions
-import com.game.actions.StaminaActions
+import com.game.actions.*
 import com.game.model.monsterStore
 import com.game.model.playerStore
 import com.game.ui.center.Center
@@ -51,20 +48,13 @@ class App : Application() {
             }
         }
 
+        // player attack
         playerStore.subscribe { player ->
             if (player.attackBar >= player.attackBarMax) {
                 playerStore.dispatch(AttackBarActions.Reset)
                 playerStore.dispatch(AttackActions.CanAttack(true))
             }
         }
-
-        monsterStore.subscribe { monster ->
-            if (monster.attackBar >= monster.attackBarMax) {
-                monsterStore.dispatch(AttackBarActions.Reset)
-                monsterStore.dispatch(AttackActions.CanAttack(true))
-            }
-        }
-
         playerStore.subscribe { player ->
             if (player.canAttack) {
                 playerStore.dispatch(AttackActions.CanAttack(false))
@@ -72,11 +62,22 @@ class App : Application() {
             }
         }
 
+        // monster attack
+        monsterStore.subscribe { monster ->
+            if (monster.attackBar >= monster.attackBarMax) {
+                monsterStore.dispatch(AttackBarActions.Reset)
+                monsterStore.dispatch(AttackActions.CanAttack(true))
+            }
+        }
         monsterStore.subscribe { monster ->
             if (monster.canAttack) {
                 monsterStore.dispatch(AttackActions.CanAttack(false))
                 playerStore.dispatch(LifeActions.DecrementBy(monster.weapon.damageAmount))
             }
+        }
+        // monster death
+        monsterStore.subscribe { monster ->
+            if (monster.life <= 0) monsterStore.dispatch(MonsterActions.NewMonster)
         }
 
         GlobalScope.launch {
