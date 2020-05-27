@@ -1,5 +1,6 @@
 package com.game.ui.center
 
+import com.game.model.monsterStore
 import com.game.model.playerStore
 import pl.treksoft.kvision.core.CssSize
 import pl.treksoft.kvision.core.UNIT
@@ -70,13 +71,15 @@ class BattleDisplay : ResponsiveGridPanel(rows = 12, cols = 12, align = Align.CE
 
     private fun monsterLifeBar() =
             Div(classes = setOf("progress", "m-1")) {
-                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-danger")) {
-                    role = "progressbar"
-                    setAttribute("aria-valuenow", "5")
-                    setAttribute("aria-valuemin", "0")
-                    setAttribute("aria-valuemax", "10")
-                    content = "Monster Life Bar"
-                    width = CssSize(100, UNIT.perc)
+                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-danger", "barText")) {
+                    bind(monsterStore) { monster ->
+                        role = "progressbar"
+                        setAttribute("aria-valuenow", monster.life.toString())
+                        setAttribute("aria-valuemin", "0")
+                        setAttribute("aria-valuemax", monster.maxLife.toString())
+                        content = "Life: ${monster.life} / ${monster.maxLife}"
+                        width = CssSize((monster.life * 100) / monster.maxLife, UNIT.perc)
+                    }
                 }
             }
 

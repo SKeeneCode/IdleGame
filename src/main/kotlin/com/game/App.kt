@@ -1,6 +1,7 @@
 package com.game
 
 import com.game.actions.LifeActions
+import com.game.model.monsterStore
 import com.game.model.playerStore
 import com.game.ui.center.Center
 import com.game.ui.footer.Footer
@@ -49,7 +50,9 @@ class App : Application() {
         GlobalScope.launch {
             while (true) {
                 val player = playerStore.getState()
+                val monster = monsterStore.getState()
                 playerStore.dispatch(LifeActions.IncrementBy(player.lifeRegen))
+                monsterStore.dispatch(LifeActions.IncrementBy(monster.lifeRegen))
                 delay(1000)
             }
         }
