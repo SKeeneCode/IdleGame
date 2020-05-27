@@ -1,11 +1,13 @@
 package com.game.ui.header
 
+import com.game.model.playerStore
 import pl.treksoft.kvision.core.CssSize
 import pl.treksoft.kvision.core.UNIT
 import pl.treksoft.kvision.html.div
 import pl.treksoft.kvision.panel.FlexJustify
 import pl.treksoft.kvision.panel.HPanel
 import pl.treksoft.kvision.panel.vPanel
+import pl.treksoft.kvision.state.bind
 import pl.treksoft.kvision.utils.px
 
 class Header : HPanel(classes = setOf("header"), spacing = 12) {
@@ -19,12 +21,14 @@ class Header : HPanel(classes = setOf("header"), spacing = 12) {
             div(classes = setOf("progress", "m-1")) {
                 width = 300.px
                 div(classes = setOf("progress-bar", "progress-bar-striped", "bg-danger")) {
-                    role = "progressbar"
-                    setAttribute("aria-valuenow", "5")
-                    setAttribute("aria-valuemin", "0")
-                    setAttribute("aria-valuemax", "10")
-                    content = "Life Bar"
-                    width = CssSize(100, UNIT.perc)
+                    bind(playerStore) { player ->
+                        role = "progressbar"
+                        setAttribute("aria-valuenow", player.life.toString())
+                        setAttribute("aria-valuemin", "0")
+                        setAttribute("aria-valuemax", player.maxLife.toString())
+                        content = "Life: ${player.life} / ${player.maxLife}"
+                        width = CssSize((player.life * 100) / player.maxLife, UNIT.perc)
+                    }
                 }
             }
             // player stamina bar

@@ -1,5 +1,6 @@
 package com.game.ui.center
 
+import com.game.model.playerStore
 import pl.treksoft.kvision.core.CssSize
 import pl.treksoft.kvision.core.UNIT
 import pl.treksoft.kvision.html.Align
@@ -7,6 +8,7 @@ import pl.treksoft.kvision.html.Div
 import pl.treksoft.kvision.html.H1
 import pl.treksoft.kvision.html.div
 import pl.treksoft.kvision.panel.ResponsiveGridPanel
+import pl.treksoft.kvision.state.bind
 
 class BattleDisplay : ResponsiveGridPanel(rows = 12, cols = 12, align = Align.CENTER) {
     init {
@@ -54,13 +56,13 @@ class BattleDisplay : ResponsiveGridPanel(rows = 12, cols = 12, align = Align.CE
     // ---- LIFE BARS ---- //
     private fun playerLifeBar() =
             Div(classes = setOf("progress", "m-1")) {
-                div(classes = setOf("progress-bar", "progress-bar-striped", "bg-danger")) {
+                bind(playerStore) { player ->
                     role = "progressbar"
-                    setAttribute("aria-valuenow", "5")
+                    setAttribute("aria-valuenow", player.life.toString())
                     setAttribute("aria-valuemin", "0")
-                    setAttribute("aria-valuemax", "10")
-                    content = "Player Life Bar"
-                    width = CssSize(100, UNIT.perc)
+                    setAttribute("aria-valuemax", player.maxLife.toString())
+                    content = "Life: ${player.life} / ${player.maxLife}"
+                    width = CssSize((player.life * 100) / player.maxLife, UNIT.perc)
                 }
             }
 
