@@ -7137,6 +7137,11 @@ a.close.disabled {
     }
 }
 
+.barText {
+    overflow: visible;
+    text-align: center;
+}
+
 .tooltip {
     position: absolute;
     z-index: 1070;
