@@ -11,5 +11,6 @@ fun attackBarReducer(attackBar: Double, barSize: Double, action: Any) = when (ac
     is AttackBarActions.DecrementBy -> {
         attackBar - action.amount
     }
+    is AttackBarActions.Reset -> 0.0
     else -> attackBar
 }

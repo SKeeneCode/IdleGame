@@ -15,6 +15,6 @@ fun monsterReducer(monster: Monster, action: Any): Monster = Monster(
         attackSpeed = monster.attackSpeed,
         attackBar = attackBarReducer(monster.attackBar, monster.attackBarMax, action),
         attackBarMax = monster.attackBarMax,
-        canAttack = monster.canAttack,
+        canAttack = attackReducer(monster.canAttack, action),
         weapon = monster.weapon
 )

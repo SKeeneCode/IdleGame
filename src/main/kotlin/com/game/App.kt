@@ -1,5 +1,6 @@
 package com.game
 
+import com.game.actions.AttackActions
 import com.game.actions.AttackBarActions
 import com.game.actions.LifeActions
 import com.game.actions.StaminaActions
@@ -50,6 +51,34 @@ class App : Application() {
             }
         }
 
+        playerStore.subscribe { player ->
+            if (player.attackBar >= player.attackBarMax) {
+                playerStore.dispatch(AttackBarActions.Reset)
+                playerStore.dispatch(AttackActions.CanAttack(true))
+            }
+        }
+
+        monsterStore.subscribe { monster ->
+            if (monster.attackBar >= monster.attackBarMax) {
+                monsterStore.dispatch(AttackBarActions.Reset)
+                monsterStore.dispatch(AttackActions.CanAttack(true))
+            }
+        }
+
+        playerStore.subscribe { player ->
+            if (player.canAttack) {
+                playerStore.dispatch(AttackActions.CanAttack(false))
+                monsterStore.dispatch(LifeActions.DecrementBy(player.weapon.damageAmount))
+            }
+        }
+
+        monsterStore.subscribe { monster ->
+            if (monster.canAttack) {
+                monsterStore.dispatch(AttackActions.CanAttack(false))
+                playerStore.dispatch(LifeActions.DecrementBy(monster.weapon.damageAmount))
+            }
+        }
+
         GlobalScope.launch {
             while (true) {
                 val player = playerStore.getState()
@@ -71,7 +100,6 @@ class App : Application() {
                 delay(1000 / 60)
             }
         }
-
     }
 }
 

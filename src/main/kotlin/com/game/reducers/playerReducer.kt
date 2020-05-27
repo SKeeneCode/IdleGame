@@ -16,6 +16,6 @@ fun playerReducer(player: Player, action: Any): Player = Player(
         attackSpeed = player.attackSpeed,
         attackBar = attackBarReducer(player.attackBar, player.attackBarMax, action),
         attackBarMax = player.attackBarMax,
-        canAttack = player.canAttack,
+        canAttack = attackReducer(player.canAttack, action),
         weapon = player.weapon
 )
