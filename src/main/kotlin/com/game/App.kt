@@ -1,9 +1,13 @@
 package com.game
 
+import com.game.actions.LifeActions
+import com.game.model.playerStore
 import com.game.ui.center.Center
 import com.game.ui.footer.Footer
 import com.game.ui.header.Header
 import com.game.ui.sidebar.Sidebar
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import pl.treksoft.kvision.Application
 import pl.treksoft.kvision.core.CssSize
 import pl.treksoft.kvision.core.UNIT
@@ -38,6 +42,13 @@ class App : Application() {
                 add(Center(), Side.CENTER)
                 add(Sidebar(), Side.LEFT)
                 add(Footer(), Side.DOWN)
+            }
+        }
+
+        GlobalScope.launch {
+            while (true) {
+                val player = playerStore.getState()
+                playerStore.dispatch(LifeActions.IncrementBy(player.lifeRegen))
             }
         }
     }
